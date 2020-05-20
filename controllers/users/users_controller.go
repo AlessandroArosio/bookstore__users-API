@@ -1,10 +1,10 @@
 package users
 
 import (
+	"github.com/AlessandroArosio/bookstore-utils-go/rest_errors"
 	"github.com/alessandroarosio/bookstore_oauth-go/oauth"
 	"github.com/alessandroarosio/bookstore_users-API/domain/users"
 	"github.com/alessandroarosio/bookstore_users-API/services"
-	"github.com/alessandroarosio/bookstore_users-API/utils/errors"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -14,7 +14,7 @@ func Create(c *gin.Context) {
 	var user users.User
 
 	if err := c.ShouldBindJSON(&user); err != nil {
-		restErr := errors.NewBadRequestError("invalid json body")
+		restErr := rest_errors.NewBadRequestError("invalid json body")
 		c.JSON(restErr.Status, restErr)
 		return
 	}
@@ -35,7 +35,7 @@ func Get(c *gin.Context) {
 
 	userId, idError := getUserId(c.Param("user_id"))
 	if idError != nil {
-		err := errors.NewBadRequestError("user id should be a number")
+		err := rest_errors.NewBadRequestError("user id should be a number")
 		c.JSON(idError.Status, err)
 		return
 	}
@@ -55,14 +55,14 @@ func Get(c *gin.Context) {
 func Update(c *gin.Context) {
 	userId, idError := getUserId(c.Param("user_id"))
 	if idError != nil {
-		err := errors.NewBadRequestError("user id should be a number")
+		err := rest_errors.NewBadRequestError("user id should be a number")
 		c.JSON(idError.Status, err)
 		return
 	}
 
 	var user users.User
 	if err := c.ShouldBindJSON(&user); err != nil {
-		restErr := errors.NewBadRequestError("invalid json body")
+		restErr := rest_errors.NewBadRequestError("invalid json body")
 		c.JSON(restErr.Status, restErr)
 		return
 	}
@@ -82,7 +82,7 @@ func Update(c *gin.Context) {
 func Delete(c *gin.Context) {
 	userId, idError := getUserId(c.Param("user_id"))
 	if idError != nil {
-		err := errors.NewBadRequestError("user id should be a number")
+		err := rest_errors.NewBadRequestError("user id should be a number")
 		c.JSON(idError.Status, err)
 		return
 	}
@@ -109,7 +109,7 @@ func Search(c *gin.Context) {
 func Login(c *gin.Context) {
 	var request users.LoginRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
-		restErr := errors.NewBadRequestError("invalid json body")
+		restErr := rest_errors.NewBadRequestError("invalid json body")
 		c.JSON(restErr.Status, restErr)
 		return
 	}
@@ -122,10 +122,10 @@ func Login(c *gin.Context) {
 
 }
 
-func getUserId(userIdParam string) (int64, *errors.RestErr) {
+func getUserId(userIdParam string) (int64, *rest_errors.RestErr) {
 	userId, userErr := strconv.ParseInt(userIdParam, 10, 64)
 	if userErr != nil {
-		return 0, errors.NewBadRequestError("user id should be a number")
+		return 0, rest_errors.NewBadRequestError("user id should be a number")
 	}
 	return userId, nil
 }
