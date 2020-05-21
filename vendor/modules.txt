@@ -1,6 +1,9 @@
 # github.com/AlessandroArosio/bookstore-utils-go v0.0.0-20200520082241-3b97d50bab97
 ## explicit
 github.com/AlessandroArosio/bookstore-utils-go/rest_errors
+# github.com/alessandroarosio/bookstore-utils-go v0.0.0-20200521135719-548ca5863138
+## explicit
+github.com/alessandroarosio/bookstore-utils-go/logger
 # github.com/alessandroarosio/bookstore_oauth-go v0.0.0-20200519194439-5a0aaf1eeecc
 ## explicit
 github.com/alessandroarosio/bookstore_oauth-go/oauth
